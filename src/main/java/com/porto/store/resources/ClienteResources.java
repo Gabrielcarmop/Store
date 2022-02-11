@@ -2,6 +2,8 @@ package com.porto.store.resources;
 
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,14 +44,14 @@ public class ClienteResources {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Cliente> create(@RequestBody Cliente obj){
+	public ResponseEntity<Cliente> create(@Valid @RequestBody Cliente obj){
 		obj = service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ClienteDto> update(@PathVariable Integer id, @RequestBody ClienteDto objDto){
+	public ResponseEntity<ClienteDto> update(@Valid @PathVariable Integer id, @RequestBody ClienteDto objDto){
 		Cliente newObj = service.update(id,objDto);
 		return ResponseEntity.ok().body(new ClienteDto(newObj));
 	}

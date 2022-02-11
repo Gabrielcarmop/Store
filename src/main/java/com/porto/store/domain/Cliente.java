@@ -10,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,8 +26,14 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotEmpty(message = "O NOME não pode ser vazio")
+	@Length(min = 3, max=100, message="O nome deve ter entre 3 e 100 caracteres")
 	private String nome;
+	@NotEmpty(message = "O Telefone não pode ser vazio")
+	@Length(min = 8, max=100, message="O telefone deve ter entre 3 e 100 caracteres")
 	private String telefone;
+	@NotEmpty(message = "O Endereço não pode ser vazio")
+	@Length(min = 3, max=100, message="O endereço deve ter entre 3 e 100 caracteres")
 	private String endereco;
 	
 	@JsonIgnore 
